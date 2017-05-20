@@ -348,11 +348,11 @@ abstract class AbstractComponentWriter {
             "if ($1N == null) { this.$1N = new $2T(); }", builderField, builderField.type);
       } else if (requiresAPassedInstance(elements, builderFieldEntry.getKey())) {
         buildMethod.addCode(
-            "if ($N == null) { throw new $T($T.class.getCanonicalName() + $S); }",
+            "if ($N == null) { throw new $T($S); }",
             builderField,
             ILLEGAL_STATE_EXCEPTION,
-            builderField.type,
-            " must be set");
+            String.format("%s must be set", builderField.type.toString())
+        );
       }
     }
     buildMethod.addStatement("return new $T(this)", name);
