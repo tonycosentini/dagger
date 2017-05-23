@@ -409,11 +409,11 @@ abstract class AbstractComponentWriter implements HasBindingMembers {
           break;
         case THROW:
           buildMethod.addCode(
-              "if ($N == null) { throw new $T($T.class.getCanonicalName() + $S); }",
+              "if ($N == null) { throw new $T($S); }",
               builderField,
               IllegalStateException.class,
-              TypeNames.rawTypeName(builderField.type),
-              " must be set");
+              String.format("%s must be set", builderField.type.toString())
+          );
           break;
         case ALLOW:
           break;
